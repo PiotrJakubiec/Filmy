@@ -1,0 +1,56 @@
+﻿@model Filmy.Models.Result
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Details</title>
+    <style>
+        body {
+            font-family: "Aachen";
+            background-color: #8b0000;
+            text-shadow: 2px 2px 0px #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 72px; /* Larger font size */
+            color: #ffd700; /* Gold color */
+            text-shadow: 2px 2px 0px #000; /* Black border */
+            -webkit-text-stroke-width: 1px; /* Black border for webkit browsers */
+            -webkit-text-stroke-color: #000; /* Black border for webkit browsers */
+            display: inline;
+        }
+
+        p {
+            margin-bottom: 0;
+            font-size: 72px; /* Larger font size */
+            color: #ffd700; /* Gold color */
+            text-shadow: 2px 2px 0px #000; /* Black border */
+            -webkit-text-stroke-width: 1px; /* Black border for webkit browsers */
+            -webkit-text-stroke-color: #000; /* Black border for webkit browsers */
+        }
+    </style>
+</head>
+<body>
+    <div class="movie-details">
+        <img class="poster" src="https://image.tmdb.org/t/p/w500@Model.poster_path" alt="Movie Poster" />
+        <div>
+            <div class="title">@Model.title</div>
+            <div class="overview">@Model.overview</div>
+            <div class="release-date">Release Date: @Model.release_date</div>
+            <div class="rating">Rating: @Model.vote_average</div>
+        </div>
+    </div>
+</body>
+</html>

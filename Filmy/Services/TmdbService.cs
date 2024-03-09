@@ -20,7 +20,7 @@ namespace Filmy.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://api.themoviedb.org/3/movie/${{params.id}}?language=en-US&api_key=${{ab3bf8e762d05382cba6eeb892b43917}}");
+                var response = await _httpClient.GetAsync($"https://api.themoviedb.org/3/discover/movie?api_key=ab3bf8e762d05382cba6eeb892b43917&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc");
                 response.EnsureSuccessStatusCode();
 
                 var content = await response.Content.ReadAsStringAsync();
