@@ -1,31 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Filmy.Controllers
 {
     public class MovieController : Controller
     {
+        private readonly HttpClient _httpClient;
+
+        public MovieController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
         public async Task<IActionResult> Index()
         {
-            var client = new RestClient("https://api.themoviedb.org/3/trending/movie/day?language=en-US");
-            var request = new RestRequest("GET");
-            request.AddHeader("accept", "application/json");
-            request.AddHeader("Authorization", "Bearer ab3bf8e762d05382cba6eeb892b43917"); // Replace with your actual TMDB API key
+            // Set base address
+            _httpClient.BaseAddress = new Uri("https://api.themoviedb.org/3/");
 
-            var response = await client.ExecuteAsync(request);
+            // Add headers
+            _httpClient.DefaultRequestHeaders.Add("accept", "application/json");
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer ab3bf8e762d05382cba6eeb892b43917"); // Replace with your actual TMDB API key
 
-            if (response.IsSuccessful)
+            // Make API request
+            HttpResponseMessage response = await _httpClient.GetAsync("discover/movie?api_key=ab3bf8e762d05382cba6eeb892b43917&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc");
+
+            if (response.IsSuccessStatusCode)
             {
-                var content = response.Content;
-                // Process the API response here
-                Console.WriteLine(content); // For testing, you can print the response content to the console
-                return Content(content);
+                // Process successful API response
+                string content = await response.Content.ReadAsStringAsync();
+                // Redirect to the Result view with the API response content
+                return View("Result", content);
             }
             else
             {
                 // Handle API request failure
-                return Content("Failed to fetch movie data from the API.");
+                // Redirect to the Index view when there's no connection to the API
+                return RedirectToAction("Index");
             }
         }
     }
