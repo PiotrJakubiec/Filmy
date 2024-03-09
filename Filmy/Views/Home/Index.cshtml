@@ -1,0 +1,65 @@
+﻿@model Filmy.Models.Movie
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommendation</title>
+    <style>
+        body {
+            font-family: "Aachen";
+            background-color: #8b0000;
+            text-shadow: 2px 2px 0px #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 72px; /* Larger font size */
+            color: #ffd700; /* Gold color */
+            text-shadow: 2px 2px 0px #000; /* Black border */
+            -webkit-text-stroke-width: 1px; /* Black border for webkit browsers */
+            -webkit-text-stroke-color: #000; /* Black border for webkit browsers */
+            display: inline;
+        }
+
+        p {
+            margin-bottom: 0;
+            font-size: 72px; /* Larger font size */
+            color: #ffd700; /* Gold color */
+            text-shadow: 2px 2px 0px #000; /* Black border */
+            -webkit-text-stroke-width: 1px; /* Black border for webkit browsers */
+            -webkit-text-stroke-color: #000; /* Black border for webkit browsers */
+        }
+    </style>
+</head>
+<body>
+    @if (Model != null)
+    {
+        <div class="container">
+            <h2>@Model.Title</h2>
+                @Html.Raw(Model) <!-- Display the raw JSON content -->
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <p>NO MOVIE INFORMATION AVAILABLE.</p>
+        </div>
+    }
+</body>
+</html>
